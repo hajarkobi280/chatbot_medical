@@ -1,0 +1,1700 @@
+{% extends "base.html" %}
+
+{% block title %}Interface Médecin - Medical Chatbot{% endblock %}
+
+{% block styles %}
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    :root {
+        --primary-gradient: linear-gradient(135deg, #40916c 0%, #74c69d 100%);
+        --primary-light: #b7e4c7;
+        --primary-dark: #2d6a4f;
+        --bg-primary: #f9fafb;
+        --bg-secondary: #ffffff;
+        --bg-tertiary: #f3f4f6;
+        --bg-sidebar: #f8fafc;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --text-light: #f8fafc;
+        --text-muted: #94a3b8;
+        --border: #e2e8f0;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --radius-sm: 0.375rem;
+        --radius-md: 0.5rem;
+        --radius-lg: 0.75rem;
+        --radius-xl: 1rem;
+        --radius-full: 9999px;
+        --transition-fast: all 0.15s ease;
+        --transition-normal: all 0.3s ease;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--bg-primary);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        color: var(--text-primary);
+        line-height: 1.5;
+    }
+
+    .top-nav {
+        background: var(--primary-gradient);
+        color: var(--text-light);
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: var(--shadow-lg);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        height: 70px;
+        border-bottom-left-radius: var(--radius-lg);
+        border-bottom-right-radius: var(--radius-lg);
+    }
+
+    .logo {
+        font-size: 1.25rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        letter-spacing: -0.025em;
+    }
+
+    .logo i {
+        font-size: 1.5rem;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.5rem;
+        border-radius: var(--radius-full);
+        box-shadow: var(--shadow-md);
+    }
+
+    .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .nav-menu button {
+        padding: 0.75rem 1rem;
+        background-color: rgba(255, 255, 255, 0.15);
+        border: none;
+        border-radius: var(--radius-md);
+        color: var(--text-light);
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition-normal);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .nav-menu button:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .nav-menu button:active {
+        transform: translateY(0);
+    }
+
+    .nav-menu button.active {
+        background-color: rgba(255, 255, 255, 0.25);
+        font-weight: 600;
+    }
+
+    .nav-menu button i {
+        font-size: 1.125rem;
+    }
+
+    .logout-btn {
+        background-color: rgba(108, 117, 125, 0.2) !important;
+    }
+
+    .logout-btn:hover {
+        background-color: rgba(108, 117, 125, 0.3) !important;
+    }
+
+    .main-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 70px);
+        margin-top: 70px;
+    }
+
+    .container {
+        flex-grow: 1;
+        max-width: 1400px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+
+    .content-section {
+        background: var(--bg-secondary);
+        padding: 30px;
+        border-radius: var(--radius-lg);
+        margin-bottom: 40px;
+        box-shadow: var(--shadow-md);
+        display: none;
+    }
+
+    .content-section.active {
+        display: block;
+    }
+
+    .content-section h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: var(--primary-dark);
+        font-size: 1.125rem;
+        font-weight: 600;
+    }
+
+    .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        background: var(--bg-secondary);
+        padding: 10px;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .tab {
+        padding: 10px 20px;
+        border: none;
+        border-radius: var(--radius-full);
+        background-color: var(--bg-tertiary);
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: var(--transition-normal);
+        font-weight: 500;
+    }
+
+    .tab.active {
+        background: var(--primary-gradient);
+        color: var(--text-light);
+        box-shadow: var(--shadow-md);
+    }
+
+    .data-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .data-table {
+        min-width: 1000px;
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin: 20px 0;
+        background: var(--bg-secondary);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        font-size: 0.875rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .data-table th {
+        background-color: var(--bg-tertiary);
+        color: var(--text-primary);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+    }
+
+    .data-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .data-table tr:hover td {
+        background-color: var(--bg-tertiary);
+    }
+
+    .actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .actions button {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+        border-radius: var(--radius-md);
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition-normal);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .actions button:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .actions button:active {
+        transform: translateY(0);
+    }
+
+    .view-btn {
+        background: linear-gradient(135deg, #0288d1 0%, #29b6f6 100%);
+    }
+
+    .edit-btn {
+        background: linear-gradient(135deg, #ff9800 0%, #ffb74d 100%);
+    }
+
+    .delete-btn {
+        background: linear-gradient(135deg, #d32f2f 0%, #ef5350 100%);
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(3px);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .modal.show {
+        opacity: 1;
+    }
+
+    .modal-content {
+        background-color: var(--bg-secondary);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        width: 90%;
+        max-width: 600px;
+        max-height: 90vh;
+        box-shadow: var(--shadow-xl);
+        animation: modalSlideIn 0.3s ease-out;
+        position: relative;
+        overflow-y: auto;
+        transform: translateY(20px);
+        transition: transform 0.3s ease;
+    }
+
+    .modal.show .modal-content {
+        transform: translateY(0);
+    }
+
+    @keyframes modalSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--border);
+        position: sticky;
+        top: 0;
+        background: var(--bg-secondary);
+        z-index: 1;
+    }
+
+    .modal-header h2 {
+        margin: 0;
+        color: var(--text-primary);
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+
+    .close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        color: var(--text-muted);
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: var(--transition-fast);
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-full);
+        background: var(--bg-tertiary);
+    }
+
+    .close:hover {
+        color: var(--text-primary);
+        background: var(--border);
+        transform: rotate(90deg);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-primary);
+        font-size: 0.95rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        border: 2px solid var(--border);
+        border-radius: var(--radius-md);
+        font-size: 1rem;
+        transition: var(--transition-normal);
+        background-color: var(--bg-tertiary);
+        color: var(--text-primary);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--primary-dark);
+        box-shadow: 0 0 0 3px rgba(64, 145, 108, 0.1);
+        background-color: var(--bg-secondary);
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 2px solid var(--border);
+        position: sticky;
+        bottom: 0;
+        background: var(--bg-secondary);
+        z-index: 1;
+    }
+
+    .btn {
+        padding: 0.875rem 1.75rem;
+        border-radius: var(--radius-md);
+        font-size: 0.95rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-width: 120px;
+        justify-content: center;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .btn:active {
+        transform: translateY(0);
+    }
+
+    .btn-primary {
+        background: var(--primary-gradient);
+        color: var(--text-light);
+    }
+
+    .btn-secondary {
+        background-color: var(--bg-tertiary);
+        color: var(--text-primary);
+    }
+
+    .btn-secondary:hover {
+        background-color: var(--border);
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+        color: var(--text-light);
+    }
+
+    .btn-success:hover {
+        background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+    }
+
+    .modal-content::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .modal-content::-webkit-scrollbar-track {
+        background: var(--bg-tertiary);
+        border-radius: var(--radius-full);
+    }
+
+    .modal-content::-webkit-scrollbar-thumb {
+        background: var(--primary-dark);
+        border-radius: var(--radius-full);
+    }
+
+    .modal-content::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-gradient);
+    }
+
+    @media (max-width: 768px) {
+        .modal-content {
+            width: 95%;
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+
+        .modal-footer {
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .top-nav {
+            padding: 1rem;
+        }
+        
+        .nav-menu {
+            display: flex;
+            position: static;
+            width: auto;
+            height: auto;
+            background: none;
+            padding: 0;
+            box-shadow: none;
+        }
+        
+        .nav-menu button {
+            width: auto;
+        }
+        
+        .container {
+            padding: 0 15px;
+            margin: 20px auto;
+        }
+        
+        .content-section {
+            padding: 20px;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .add-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .tabs {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .tab {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding: 0.5rem;
+        background: var(--bg-secondary);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .add-btn {
+        padding: 0.7rem 1.5rem;
+        background: var(--primary-gradient);
+        color: var(--text-light);
+        border: none;
+        border-radius: var(--radius-md);
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        box-shadow: var(--shadow-md);
+        position: relative;
+        overflow: hidden;
+        letter-spacing: 0.3px;
+    }
+
+    .add-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+        );
+        transition: 0.5s;
+    }
+
+    .add-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+        background: linear-gradient(135deg, #2d6a4f 0%, #40916c 100%);
+    }
+
+    .add-btn:hover::before {
+        left: 100%;
+    }
+
+    .add-btn:active {
+        transform: translateY(0);
+        box-shadow: var(--shadow-md);
+    }
+
+    .add-btn i {
+        font-size: 1.1rem;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.5rem;
+        border-radius: var(--radius-full);
+        box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+        .action-buttons {
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 1rem;
+        }
+
+        .add-btn {
+        width: 100%;
+            justify-content: center;
+            padding: 1rem 1.5rem;
+        }
+    }
+
+    .disease-form {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .form-control.textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .symptoms-input {
+        position: relative;
+    }
+
+    .symptoms-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .symptom-tag {
+        background: var(--primary-light);
+        color: var(--primary-dark);
+        padding: 0.25rem 0.75rem;
+        border-radius: var(--radius-full);
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .symptom-tag .remove-symptom {
+        cursor: pointer;
+        color: var(--primary-dark);
+        opacity: 0.7;
+        transition: var(--transition-fast);
+    }
+
+    .symptom-tag .remove-symptom:hover {
+        opacity: 1;
+    }
+
+    .form-error {
+        color: #dc2626;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: none;
+    }
+
+    .form-error.show {
+        display: block;
+    }
+
+    .btn-save {
+        background: var(--primary-gradient);
+        color: var(--text-light);
+        padding: 1rem 2rem;
+        font-weight: 600;
+        min-width: 150px;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #2d6a4f 0%, #40916c 100%);
+    }
+
+    .btn-save:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .btn-save.loading {
+        position: relative;
+        color: transparent;
+    }
+
+    .btn-save.loading::after {
+        content: '';
+        position: absolute;
+        width: 1.25rem;
+        height: 1.25rem;
+        border: 2px solid var(--text-light);
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .medicine-form {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .view-modal .modal-content {
+        max-width: 700px;
+    }
+
+    .view-content {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .view-section {
+        background: var(--bg-tertiary);
+        padding: 1.25rem;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border);
+    }
+
+    .view-section h3 {
+        color: var(--primary-dark);
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+    }
+
+    .view-section p {
+        color: var(--text-primary);
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .view-section .metadata {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1rem;
+    }
+
+    .btn-view {
+        background: linear-gradient(135deg, #0288d1 0%, #29b6f6 100%);
+        color: var(--text-light);
+    }
+
+    .btn-edit {
+        background: linear-gradient(135deg, #ff9800 0%, #ffb74d 100%);
+        color: var(--text-light);
+    }
+
+    .btn-delete {
+        background: linear-gradient(135deg, #d32f2f 0%, #ef5350 100%);
+        color: var(--text-light);
+    }
+
+    .btn-view:hover {
+        background: linear-gradient(135deg, #0277bd 0%, #0288d1 100%);
+    }
+
+    .btn-edit:hover {
+        background: linear-gradient(135deg, #f57c00 0%, #ff9800 100%);
+    }
+
+    .btn-delete:hover {
+        background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
+    }
+
+    .confirmation-modal {
+        text-align: center;
+    }
+
+    .confirmation-modal .modal-content {
+        max-width: 400px;
+    }
+
+    .confirmation-modal .modal-body {
+        padding: 1.5rem 0;
+    }
+
+    .confirmation-modal .icon {
+        font-size: 3rem;
+        color: var(--primary-dark);
+        margin-bottom: 1rem;
+    }
+
+    .confirmation-modal .message {
+        font-size: 1.1rem;
+        color: var(--text-primary);
+        margin-bottom: 1.5rem;
+    }
+
+    .confirmation-modal .btn-group {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .confirmation-modal .btn-cancel {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+    }
+
+    .confirmation-modal .btn-confirm {
+        background: var(--primary-gradient);
+        color: var(--text-light);
+    }
+
+    .toast {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        padding: 1rem 1.5rem;
+        border-radius: var(--radius-md);
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        z-index: 1100;
+        transform: translateY(100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .toast.success {
+        border-left: 4px solid #2e7d32;
+    }
+
+    .toast.error {
+        border-left: 4px solid #d32f2f;
+    }
+
+    .toast i {
+        font-size: 1.25rem;
+    }
+
+    .toast.success i {
+        color: #2e7d32;
+    }
+
+    .toast.error i {
+        color: #d32f2f;
+    }
+
+    @media (max-width: 768px) {
+        .action-buttons {
+            flex-direction: column;
+        }
+        
+        .action-buttons button {
+            width: 100%;
+        }
+        
+        .confirmation-modal .btn-group {
+            flex-direction: column;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="doctor-dashboard">
+    <nav class="top-nav">
+        <div class="logo">
+            <i class="fas fa-heartbeat"></i>
+            <span>HealthAssist AI</span>
+        </div>
+        <div class="nav-menu">
+            <button id="medicaments-btn" class="active">
+                <i class="fas fa-pills"></i>
+                Dossiers Médicaux
+            </button>
+            <button id="chat-btn">
+                <i class="fas fa-comments"></i>
+                Chat
+            </button>
+            <button id="logout-btn" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Déconnexion
+            </button>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="container">
+            <div class="action-buttons">
+                <button class="add-btn" id="add-medical-record">
+                    <i class="fas fa-plus-circle"></i>
+                    Ajouter un Nouveau Dossier Médical
+                </button>
+            </div>
+
+            <div class="content-section active">
+                <h2>Liste des Dossiers Médicaux</h2>
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Maladie</th>
+                                <th>Symptômes</th>
+                                <th>Urgence</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="medical-records-table"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-section" id="medicines-section">
+                <h2>Liste des Médicaments</h2>
+                <div class="action-buttons">
+                    <button class="add-btn" id="add-medicine">
+                        <i class="fas fa-plus"></i>
+                        Ajouter un Médicament
+                    </button>
+                </div>
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Description</th>
+                                <th>Date de création</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="medicines-table">
+                            <!-- Medicines will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for adding/editing medical records -->
+<div id="medical-record-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modal-title">Ajouter un Dossier Médical</h2>
+            <span class="close">&times;</span>
+        </div>
+        <form id="medical-record-form">
+            <input type="hidden" id="record-id">
+            <div class="form-group">
+                <label for="maladie">Maladie *</label>
+                <input type="text" id="maladie" name="Maladie" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="Description" class="form-control textarea"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="symptomes">Symptômes</label>
+                <input type="text" id="symptomes" class="form-control" placeholder="Entrez un symptôme et appuyez sur Entrée">
+                <div id="symptomes-tags" class="tags-container"></div>
+            </div>
+            <div class="form-group">
+                <label for="urgence">Urgence</label>
+                <select id="urgence" name="Urgence" class="form-control">
+                    <option value="NON">Non</option>
+                    <option value="OUI">Oui</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="medicaments">Médicaments</label>
+                <input type="text" id="medicaments" class="form-control" placeholder="Entrez un médicament et appuyez sur Entrée">
+                <div id="medicaments-tags" class="tags-container"></div>
+            </div>
+            <div class="form-group">
+                <label for="actions">Actions recommandées</label>
+                <textarea id="actions" name="Actions recommandées" class="form-control textarea"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- View Modal -->
+<div id="view-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Détails du Dossier Médical</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="view-content">
+            <div class="view-section">
+                <h3>Maladie</h3>
+                <p id="view-maladie"></p>
+            </div>
+            <div class="view-section">
+                <h3>Description</h3>
+                <p id="view-description"></p>
+            </div>
+            <div class="view-section">
+                <h3>Symptômes</h3>
+                <div id="view-symptomes" class="tags-container"></div>
+            </div>
+            <div class="view-section">
+                <h3>Urgence</h3>
+                <p id="view-urgence"></p>
+            </div>
+            <div class="view-section">
+                <h3>Médicaments</h3>
+                <div id="view-medicaments" class="tags-container"></div>
+            </div>
+            <div class="view-section">
+                <h3>Actions recommandées</h3>
+                <p id="view-actions"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" id="edit-record-btn">Modifier</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div id="confirmation-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Confirmation</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p id="confirmation-message"></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-danger" id="confirm-delete">Supprimer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Medicine Modal -->
+<div class="modal" id="medicine-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="medicine-modal-title">Ajouter un Médicament</h3>
+            <button class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="medicine-form" class="medicine-form">
+                <input type="hidden" id="medicine-id">
+                <div class="form-group">
+                    <label for="medicine-name">Nom du Médicament</label>
+                    <input type="text" id="medicine-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="medicine-description">Description</label>
+                    <textarea id="medicine-description" class="form-control textarea" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-save">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal for Delete -->
+<div id="delete-confirmation-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Confirmation de suppression</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>Êtes-vous sûr de vouloir supprimer ce médicament ?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-danger" id="confirm-delete">Supprimer</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Global variables
+    let currentRecordId = null;
+    let symptomes = new Set();
+    let medicaments = new Set();
+
+    // Get CSRF token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Utility functions
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+            <span>${message}</span>
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }, 100);
+    }
+
+    function showModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('show'), 10);
+    }
+
+    function hideModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
+
+    function updateTags(containerId, tags) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+        tags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'tag';
+            tagElement.innerHTML = `
+                ${tag}
+                <span class="remove-tag" data-tag="${tag}">&times;</span>
+            `;
+            container.appendChild(tagElement);
+        });
+
+        // Add event listeners to remove buttons
+        container.querySelectorAll('.remove-tag').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tag = this.getAttribute('data-tag');
+                if (containerId === 'symptomes-tags') {
+                    symptomes.delete(tag);
+                    updateTags('symptomes-tags', symptomes);
+                } else if (containerId === 'medicaments-tags') {
+                    medicaments.delete(tag);
+                    updateTags('medicaments-tags', medicaments);
+                }
+            });
+        });
+    }
+
+    // Load medical records
+    function loadMedicalRecords() {
+        fetch('/api/doctor/diseases')
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('medical-records-table');
+                tbody.innerHTML = '';
+                
+                data.diseases.forEach(record => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${record.Maladie || ''}</td>
+                        <td>${Array.isArray(record.Symptômes) ? record.Symptômes.join(', ') : record.Symptômes || ''}</td>
+                        <td>${record.Urgence || 'NON'}</td>
+                        <td>${record.Description || ''}</td>
+                        <td class="actions">
+                            <button class="btn btn-view" data-id="${record.id}">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-edit" data-id="${record.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-delete" data-id="${record.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                // Add event listeners to action buttons
+                tbody.querySelectorAll('.btn-view').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        viewRecord(id);
+                    });
+                });
+
+                tbody.querySelectorAll('.btn-edit').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        editRecord(id);
+                    });
+                });
+
+                tbody.querySelectorAll('.btn-delete').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        confirmDelete(id);
+                    });
+                });
+            })
+            .catch(error => showToast('Erreur lors du chargement des données', 'error'));
+    }
+
+    // View record
+    function viewRecord(id) {
+        fetch(`/api/doctor/diseases/${id}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erreur réseau');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (!data.success) {
+                    throw new Error(data.error || 'Erreur lors du chargement des détails');
+                }
+
+                const disease = data.disease;
+                document.getElementById('view-maladie').textContent = disease.Maladie || '';
+                document.getElementById('view-description').textContent = disease.Description || '';
+                document.getElementById('view-urgence').textContent = disease.Urgence || 'NON';
+                document.getElementById('view-actions').textContent = disease["Actions recommandées"] || '';
+
+                // Update symptoms and medications tags
+                const symptomesContainer = document.getElementById('view-symptomes');
+                symptomesContainer.innerHTML = '';
+                if (Array.isArray(disease.Symptômes)) {
+                    disease.Symptômes.forEach(symptome => {
+                        const tag = document.createElement('span');
+                        tag.className = 'tag';
+                        tag.textContent = symptome;
+                        symptomesContainer.appendChild(tag);
+                    });
+                }
+
+                const medicamentsContainer = document.getElementById('view-medicaments');
+                medicamentsContainer.innerHTML = '';
+                if (Array.isArray(disease.Médicaments)) {
+                    disease.Médicaments.forEach(medicament => {
+                        const tag = document.createElement('span');
+                        tag.className = 'tag';
+                        tag.textContent = medicament;
+                        medicamentsContainer.appendChild(tag);
+                    });
+                }
+
+                currentRecordId = id;
+                showModal('view-modal');
+            })
+            .catch(error => showToast(error.message, 'error'));
+    }
+
+    // Edit record
+    function editRecord(id) {
+        fetch(`/api/doctor/diseases/${id}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erreur réseau');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (!data.success) {
+                    throw new Error(data.error || 'Erreur lors du chargement des données');
+                }
+
+                const disease = data.disease;
+                document.getElementById('record-id').value = id;
+                document.getElementById('maladie').value = disease.Maladie || '';
+                document.getElementById('description').value = disease.Description || '';
+                document.getElementById('urgence').value = disease.Urgence || 'NON';
+                document.getElementById('actions').value = disease["Actions recommandées"] || '';
+
+                symptomes = new Set(disease.Symptômes || []);
+                medicaments = new Set(disease.Médicaments || []);
+                updateTags('symptomes-tags', symptomes);
+                updateTags('medicaments-tags', medicaments);
+
+                currentRecordId = id;
+                document.getElementById('modal-title').textContent = 'Modifier le Dossier Médical';
+                showModal('medical-record-modal');
+            })
+            .catch(error => showToast(error.message, 'error'));
+    }
+
+    // Confirm delete
+    function confirmDelete(id) {
+        currentRecordId = id;
+        document.getElementById('confirmation-message').textContent = 'Êtes-vous sûr de vouloir supprimer ce dossier médical ?';
+        showModal('confirmation-modal');
+    }
+
+    // Delete record
+    document.getElementById('confirm-delete').addEventListener('click', function() {
+        if (!currentRecordId) return;
+
+        fetch(`/api/doctor/diseases/${currentRecordId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur réseau');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                showToast('Dossier supprimé avec succès');
+                hideModal('confirmation-modal');
+                loadMedicalRecords();
+            } else {
+                throw new Error(data.error || 'Erreur lors de la suppression');
+            }
+        })
+        .catch(error => showToast(error.message, 'error'));
+    });
+
+    // Form submission
+    document.getElementById('medical-record-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitButton = this.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.classList.add('loading');
+        
+        const formData = {
+            Maladie: document.getElementById('maladie').value.trim(),
+            Description: document.getElementById('description').value.trim(),
+            Symptômes: Array.from(symptomes),
+            Urgence: document.getElementById('urgence').value,
+            Médicaments: Array.from(medicaments),
+            "Actions recommandées": document.getElementById('actions').value.trim()
+        };
+
+        if (!formData.Maladie) {
+            showToast('Le nom de la maladie est requis', 'error');
+            submitButton.disabled = false;
+            submitButton.classList.remove('loading');
+            return;
+        }
+
+        const url = currentRecordId ? `/api/doctor/diseases/${currentRecordId}` : '/api/doctor/diseases';
+        const method = currentRecordId ? 'PUT' : 'POST';
+
+        fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur réseau');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                showToast(currentRecordId ? 'Dossier mis à jour avec succès' : 'Dossier ajouté avec succès');
+                hideModal('medical-record-modal');
+                loadMedicalRecords();
+            } else {
+                throw new Error(data.error || 'Erreur lors de l\'enregistrement');
+            }
+        })
+        .catch(error => {
+            showToast(error.message, 'error');
+        })
+        .finally(() => {
+            submitButton.disabled = false;
+            submitButton.classList.remove('loading');
+        });
+    });
+
+    // Event Listeners
+    document.getElementById('add-medical-record').addEventListener('click', function() {
+        currentRecordId = null;
+        document.getElementById('medical-record-form').reset();
+        symptomes.clear();
+        medicaments.clear();
+        updateTags('symptomes-tags', symptomes);
+        updateTags('medicaments-tags', medicaments);
+        document.getElementById('modal-title').textContent = 'Ajouter un Dossier Médical';
+        showModal('medical-record-modal');
+    });
+
+    // Handle symptoms input
+    document.getElementById('symptomes').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const value = this.value.trim();
+            if (value && !symptomes.has(value)) {
+                symptomes.add(value);
+                updateTags('symptomes-tags', symptomes);
+                this.value = '';
+            }
+        }
+    });
+
+    // Handle medications input
+    document.getElementById('medicaments').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const value = this.value.trim();
+            if (value && !medicaments.has(value)) {
+                medicaments.add(value);
+                updateTags('medicaments-tags', medicaments);
+                this.value = '';
+            }
+        }
+    });
+
+    // Close modals
+    document.querySelectorAll('.close, [data-dismiss="modal"]').forEach(button => {
+        button.addEventListener('click', function() {
+            const modal = this.closest('.modal');
+            hideModal(modal.id);
+        });
+    });
+
+    // Edit button in view modal
+    document.getElementById('edit-record-btn').addEventListener('click', function() {
+        hideModal('view-modal');
+        editRecord(currentRecordId);
+    });
+
+    // Load initial data
+    loadMedicalRecords();
+
+    // Medicine Management
+    let currentMedicineId = null;
+
+    // Load medicines
+    function loadMedicines() {
+        fetch('/api/doctor/medicines')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erreur réseau');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (!data.success) {
+                    throw new Error(data.error || 'Erreur lors du chargement des médicaments');
+                }
+
+                const tbody = document.getElementById('medicines-table');
+                tbody.innerHTML = '';
+                
+                data.medicines.forEach(medicine => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${medicine.name}</td>
+                        <td>${medicine.description}</td>
+                        <td>${new Date(medicine.created_at).toLocaleDateString()}</td>
+                        <td class="actions">
+                            <button class="btn btn-edit" onclick="editMedicine(${medicine.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-delete" onclick="confirmDeleteMedicine(${medicine.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(error => showToast(error.message, 'error'));
+    }
+
+    // Edit medicine
+    window.editMedicine = function(id) {
+        fetch(`/api/doctor/medicines/${id}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erreur réseau');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (!data.success) {
+                    throw new Error(data.error || 'Erreur lors du chargement des données');
+                }
+
+                const medicine = data.medicine;
+                document.getElementById('medicine-id').value = medicine.id;
+                document.getElementById('medicine-name').value = medicine.name;
+                document.getElementById('medicine-description').value = medicine.description;
+
+                currentMedicineId = medicine.id;
+                document.getElementById('medicine-modal-title').textContent = 'Modifier le Médicament';
+                showModal('medicine-modal');
+            })
+            .catch(error => showToast(error.message, 'error'));
+    };
+
+    // Confirm delete medicine
+    window.confirmDeleteMedicine = function(id) {
+        currentMedicineId = id;
+        document.getElementById('confirmation-message').textContent = 'Êtes-vous sûr de vouloir supprimer ce médicament ?';
+        showModal('confirmation-modal');
+    };
+
+    // Delete medicine
+    document.getElementById('confirm-delete').addEventListener('click', function() {
+        if (!currentMedicineId) return;
+
+        fetch(`/api/doctor/medicines/${currentMedicineId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur réseau');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                showToast('Médicament supprimé avec succès');
+                hideModal('confirmation-modal');
+                loadMedicines();
+            } else {
+                throw new Error(data.error || 'Erreur lors de la suppression');
+            }
+        })
+        .catch(error => showToast(error.message, 'error'));
+    });
+
+    // Medicine form submission
+    document.getElementById('medicine-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitButton = this.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.classList.add('loading');
+        
+        const formData = {
+            name: document.getElementById('medicine-name').value.trim(),
+            description: document.getElementById('medicine-description').value.trim()
+        };
+
+        if (!formData.name || !formData.description) {
+            showToast('Tous les champs sont requis', 'error');
+            submitButton.disabled = false;
+            submitButton.classList.remove('loading');
+            return;
+        }
+
+        const url = currentMedicineId ? `/api/doctor/medicines/${currentMedicineId}` : '/api/doctor/medicines';
+        const method = currentMedicineId ? 'PUT' : 'POST';
+
+        fetch(url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur réseau');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                showToast(currentMedicineId ? 'Médicament mis à jour avec succès' : 'Médicament ajouté avec succès');
+                hideModal('medicine-modal');
+                loadMedicines();
+            } else {
+                throw new Error(data.error || 'Erreur lors de l\'enregistrement');
+            }
+        })
+        .catch(error => {
+            showToast(error.message, 'error');
+        })
+        .finally(() => {
+            submitButton.disabled = false;
+            submitButton.classList.remove('loading');
+        });
+    });
+
+    // Add medicine button
+    document.getElementById('add-medicine').addEventListener('click', function() {
+        currentMedicineId = null;
+        document.getElementById('medicine-form').reset();
+        document.getElementById('medicine-modal-title').textContent = 'Ajouter un Médicament';
+        showModal('medicine-modal');
+    });
+
+    // Load initial data
+    loadMedicalRecords();
+    loadMedicines(); // Load medicines on page load
+
+    // Chat button functionality
+    document.getElementById('chat-btn').addEventListener('click', function() {
+        window.location.href = "{{ url_for('chat_doctor') }}";  // Use Flask's url_for to generate the correct URL
+    });
+
+    // Logout functionality
+    document.getElementById('logout-btn').addEventListener('click', function() {
+        fetch("{{ url_for('logout') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "{{ url_for('login') }}";  // Use Flask's url_for for login page
+            } else {
+                throw new Error('Erreur lors de la déconnexion');
+            }
+        })
+        .catch(error => {
+            showToast(error.message, 'error');
+        });
+    });
+});
+</script>
+{% endblock %} 

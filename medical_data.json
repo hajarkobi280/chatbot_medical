@@ -1,0 +1,764 @@
+[
+  {
+    "Symptômes": "Douleur thoracique intense, sueurs",
+    "Maladies": "Infarctus du myocarde",
+    "Description": "Crise cardiaque due à un blocage des artères coronaires.",
+    "Urgence": "OUI",
+    "Médicaments/Traitements": "Aspirine (en attente du SAMU)",
+    "Actions recommandées": "Appel d’urgence immédiat (15/112)"
+  },
+  {
+    "Symptômes": "Confusion, soif intense",
+    "Maladies": "Diabète (Hyperglycémie)",
+    "Description": "Déséquilibre glycémique pouvant mener à des complications graves.",
+    "Urgence": "OUI",
+    "Médicaments/Traitements": "Insuline (urgence médicale)",
+    "Actions recommandées": "Hospitalisation urgente"
+  },
+  {
+    "Symptômes": "Raideur articulaire, douleur chronique",
+    "Maladies": "Polyarthrite rhumatoïde",
+    "Description": "Maladie auto-immune causant une inflammation des articulations.",
+    "Urgence": "NON",
+    "Médicaments/Traitements": "Méthotrexate, Anti-TNF (biothérapie)",
+    "Actions recommandées": "Consultation en rhumatologue"
+  },
+  {
+    "Symptômes": "Essoufflement, sifflements respiratoires",
+    "Maladies": "Asthme aigu",
+    "Description": "Crise d'asthme due à une constriction des bronches.",
+    "Urgence": "OUI",
+    "Médicaments/Traitements": "Salbutamol (Ventoline), Corticoïdes oraux",
+    "Actions recommandées": "Éviter les déclencheurs (poussière, pollen)"
+  },
+  {
+    "Symptômes": "Fièvre > 38°C, frissons, courbatures",
+    "Maladies": "Grippe (influenza)",
+    "Description": "Infection virale respiratoire, contagieuse, souvent saisonnière.",
+    "Urgence": "NON",
+    "Médicaments/Traitements": "Paracétamol, Oseltamivir (si sévère)",
+    "Actions recommandées": "Repos, hydratation, isolement"
+  },
+  {
+    "Symptômes": "Maux de tête pulsatiles, photophobie",
+    "Maladies": "Migraine",
+    "Description": "Céphalée intense, souvent accompagnée de nausées ou sensibilité à la lumière.",
+    "Urgence": "NON",
+    "Médicaments/Traitements": "Sumatriptan, Ibuprofène",
+    "Actions recommandées": "Repos dans l'obscurité"
+  },
+  {
+    "Symptômes": "Brûlures urinaires, fièvre",
+    "Maladies": "Infection urinaire (cystite)",
+    "Description": "Infection bactérienne de la vessie, plus fréquente chez les femmes.",
+    "Urgence": "NON",
+    "Médicaments/Traitements": "Fosfomycine (Monuril), Ciprofloxacine",
+    "Actions recommandées": "Boire beaucoup d'eau"
+  },
+  {
+    "Symptômes": "Fatigue extrême, pâleur",
+    "Maladies": "Anémie ferriprive",
+    "Description": "Carence en fer entraînant une diminution des globules rouges.",
+    "Urgence": "NON",
+    "Médicaments/Traitements": "Sulfate ferreux, Vitamine C",
+    "Actions recommandées": "Bilan sanguin (ferritine)"
+  },
+  {
+    "Symptômes": "Démangeaisons cutanées, œdème",
+    "Maladies": "Allergie Urticarie",
+    "Description": "Réaction allergique cutanée, souvent liée à un allergène alimentaire.",
+    "Urgence": "NON",
+    "Médicaments/Traitements": "Cétirizine, Corticoïdes locaux",
+    "Actions recommandées": "Éviter l'allergène suspect"
+  },
+  {
+    "Symptômes": "Diarrhée aqueuse, vomissements",
+    "Maladies": "Gastro-entérite virale",
+    "Description": "Infection intestinale virale, souvent due à un norovirus.",
+    "Urgence": "NON",
+    "Médicaments/Traitements": "Solutions de réhydratation (SRO)",
+    "Actions recommandées": "Repos, hydratation"
+  },
+  {
+    "Maladie": "Grippe",
+    "Description": "Infection virale fréquente qui affecte le système respiratoire.",
+    "Symptômes": "Fièvre, toux, fatigue, maux de tête, courbatures fréquentes",
+    "Urgence": "NON",
+    "Traitements": "Repos, hydratation, médicaments antiviraux si nécessaire",
+    "Médicaments": "Paracétamol, Oseltamivir (si sévère)"
+  },
+  {
+    "Maladie": "Diabète",
+    "Description": "Maladie chronique affectant la régulation du sucre dans le sang.",
+    "Symptômes": "Soif excessive, urination fréquente, fatigue",
+    "Urgence": "NON",
+    "Traitements": "Régime alimentaire, exercice, médicaments hypoglycémiants",
+    "Médicaments": "Insuline, Metformine"
+  },
+  {
+    "Maladie": "Hypertension artérielle",
+    "Description": "Pression artérielle élevée dans les artères.",
+    "Symptômes": "Souvent asymptomatique, parfois maux de tête, essoufflement",
+    "Urgence": "NON",
+    "Traitements": "Antihypertenseurs, régime faible en sel, exercice",
+    "Médicaments": "Bêtabloquants, IEC (inhibiteurs de l'enzyme de conversion)"
+  },
+  {
+    "Maladie": "Asthme",
+    "Description": "Inflammation des voies respiratoires provoquant des difficultés respiratoires.",
+    "Symptômes": "Toux, respiration sifflante, oppression thoracique",
+    "Urgence": "OUI",
+    "Traitements": "Inhalateurs, bronchodilatateurs, corticoïdes",
+    "Médicaments": "Salbutamol (Ventoline), Corticoïdes inhalés"
+  },
+  {
+    "Maladie": "COVID-19",
+    "Description": "Maladie virale respiratoire causée par le coronavirus SARS-CoV-2.",
+    "Symptômes": "Fièvre, toux sèche, fatigue, perte de goût/odorat",
+    "Urgence": "OUI",
+    "Traitements": "Repos, oxygénothérapie, antiviraux dans les cas graves",
+    "Médicaments": "Remdésivir (si sévère), Paracétamol"
+  },
+  {
+    "Maladie": "Anémie",
+    "Description": "Diminution du nombre de globules rouges ou de la quantité d'hémoglobine.",
+    "Symptômes": "Fatigue, pâleur, essoufflement, vertiges",
+    "Urgence": "NON",
+    "Traitements": "Suppléments de fer, alimentation équilibrée, traitement de la cause sous-jacente",
+    "Médicaments": "Sulfate ferreux, Vitamine C"
+  },
+  {
+    "Maladie": "Allergie",
+    "Description": "Réaction du système immunitaire à un allergène, souvent persistante.",
+    "Symptômes": "Éternuements, écoulement nasal, démangeaisons",
+    "Urgence": "NON",
+    "Traitements": "Antihistaminiques, éviction des allergènes",
+    "Médicaments": "Antihistaminiques (Cétirizine), Corticoïdes locaux"
+  },
+  {
+    "Maladie": "Dépression",
+    "Description": "Trouble mental caractérisé par une humeur dépressive persistante.",
+    "Symptômes": "Tristesse persistante, perte d'intérêt, troubles du sommeil",
+    "Urgence": "NON",
+    "Traitements": "Antidépresseurs, thérapie, soutien psychologique",
+    "Médicaments": "Inhibiteurs sélectifs de la recapture de la sérotonine (ISRS)"
+  },
+  {
+    "Maladie": "Arthrite",
+    "Description": "Inflammation des articulations provoquant douleur et raideur.",
+    "Symptômes": "Douleur articulaire, raideur, enflure",
+    "Urgence": "NON",
+    "Traitements": "Anti-inflammatoires, thérapie physique, immunosuppresseurs",
+    "Médicaments": "Anti-inflammatoires non stéroïdiens (AINS), Méthotrexate"
+  },
+  {
+    "Maladie": "Infection fongique",
+    "Description": "Une infection cutanée courante causée par des champignons.",
+    "Symptômes": "Démangeaisons, rougeurs, desquamation",
+    "Urgence": "NON",
+    "Médicaments": "Antifongiques (Clotrimazole, Miconazole)",
+    "Actions recommandées": "Garder la zone propre et sèche, éviter l'humidité"
+  },
+  {
+    "Maladie": "RGO",
+    "Description": "Le reflux gastro-œsophagien est une condition où le contenu de l'estomac remonte dans l'œsophage.",
+    "Symptômes": "Brûlures d'estomac, régurgitations",
+    "Urgence": "NON",
+    "Médicaments": "Inhibiteurs de la pompe à protons (Oméprazole)",
+    "Actions recommandées": "Éviter les repas lourds, manger lentement"
+  },
+  {
+    "Maladie": "Cholestase chronique",
+    "Description": "Une condition où le flux de bile du foie est réduit pour une période prolongée.",
+    "Symptômes": "Jaunisse, démangeaisons, fatigue",
+    "Urgence": "OUI",
+    "Médicaments": "Acide ursodésoxycholique",
+    "Actions recommandées": "Suivi médical, régime alimentaire adapté"
+  },
+  {
+    "Maladie": "Réaction médicamenteuse",
+    "Description": "Une réaction médicamenteuse survient lorsque le corps réagit de manière indésirable à un médicament.",
+    "Symptômes": "Éruption cutanée, fièvre, gonflement",
+    "Urgence": "OUI",
+    "Médicaments": "Arrêt du médicament, corticoïdes",
+    "Actions recommandées": "Consulter immédiatement un médecin"
+  },
+  {
+    "Maladie": "Ulcère gastrique",
+    "Description": "Les ulcères gastriques sont des lésions qui se développent sur la muqueuse de l'estomac et de l'intestin grêle.",
+    "Symptômes": "Douleurs abdominales, brûlures d'estomac",
+    "Urgence": "OUI",
+    "Médicaments": "Inhibiteurs de la pompe à protons, antibiotiques (si H. pylori)",
+    "Actions recommandées": "Éviter les aliments irritants, consulter un gastro-entérologue"
+  },
+  {
+    "Maladie": "SIDA",
+    "Description": "Le syndrome d'immunodéficience acquise est une maladie causée par le VIH qui affaiblit le système immunitaire.",
+    "Symptômes": "Fatigue, fièvre, infections fréquentes",
+    "Urgence": "OUI",
+    "Médicaments": "Antirétroviraux (Tenofovir, Efavirenz)",
+    "Actions recommandées": "Suivi médical strict, prévention des infections"
+  },
+  {
+    "Maladie": "Gastro-entérite",
+    "Description": "La gastro-entérite est une inflammation de l'estomac et des intestins, généralement causée par un virus ou une bactérie.",
+    "Symptômes": "Diarrhée, vomissements, douleurs abdominales",
+    "Urgence": "NON",
+    "Médicaments": "Solutions de réhydratation (SRO)",
+    "Actions recommandées": "Repos, hydratation, consulter si symptômes graves"
+  },
+  {
+    "Maladie": "Asthme bronchique",
+    "Description": "L'asthme bronchique est une maladie respiratoire caractérisée par une inflammation des voies respiratoires.",
+    "Symptômes": "Essoufflement, sifflements respiratoires, oppression thoracique",
+    "Urgence": "OUI",
+    "Médicaments": "Salbutamol (Ventoline), Corticoïdes inhalés",
+    "Actions recommandées": "Éviter les déclencheurs, consulter un pneumologue"
+  },
+  {
+    "Maladie": "Spondylose cervicale",
+    "Description": "La spondylose cervicale est une condition dégénérative de la colonne cervicale.",
+    "Symptômes": "Douleurs cervicales, raideur, engourdissements",
+    "Urgence": "NON",
+    "Médicaments": "Anti-inflammatoires (AINS), relaxants musculaires",
+    "Actions recommandées": "Physiothérapie, posture correcte, suivi médical"
+  },
+  {
+    "Maladie": "Paralysie (hémorragie cérébrale)",
+    "Description": "La paralysie (hémorragie cérébrale) fait référence à la perte de fonction musculaire due à une hémorragie cérébrale.",
+    "Symptômes": "Faiblesse musculaire, troubles de la parole",
+    "Urgence": "OUI",
+    "Médicaments": "Traitement d'urgence, anticoagulants (si nécessaire)",
+    "Actions recommandées": "Hospitalisation immédiate, rééducation"
+  },
+  {
+    "Maladie": "Jaunisse",
+    "Description": "La jaunisse est une coloration jaune de la peau et des yeux, souvent liée à des problèmes hépatiques.",
+    "Symptômes": "Peau et yeux jaunes, fatigue",
+    "Urgence": "OUI",
+    "Médicaments": "Traitement de la cause sous-jacente",
+    "Actions recommandées": "Suivi médical, repos, régime alimentaire adapté"
+  },
+  {
+    "Maladie": "Malaria",
+    "Description": "La malaria est une maladie infectieuse transmise par les moustiques, affectant les humains et certains animaux.",
+    "Symptômes": "Fièvre, frissons, sueurs, maux de tête",
+    "Urgence": "OUI",
+    "Médicaments": "Antipaludiques (Chloroquine, Artéméther)",
+    "Actions recommandées": "Prévention (moustiquaires), consulter un médecin"
+  },
+  {
+    "Maladie": "Varicelle",
+    "Description": "La varicelle est une infection virale causant une éruption cutanée avec démangeaisons.",
+    "Symptômes": "Éruption cutanée, fièvre, démangeaisons",
+    "Urgence": "NON",
+    "Médicaments": "Antiviraux (Aciclovir), antiprurigineux",
+    "Actions recommandées": "Repos, éviter de gratter, isolement"
+  },
+  {
+    "Maladie": "Dengue",
+    "Description": "La dengue est une maladie virale transmise par les moustiques provoquant des symptômes pseudo-grippaux.",
+    "Symptômes": "Fièvre élevée, douleurs musculaires, éruption cutanée",
+    "Urgence": "OUI",
+    "Médicaments": "Paracétamol (pas d'AINS)",
+    "Actions recommandées": "Repos, hydratation, consulter un médecin"
+  },
+  {
+    "Maladie": "Typhoïde",
+    "Description": "La typhoïde est une infection bactérienne pouvant entraîner une forte fièvre et des symptômes gastro-intestinaux.",
+    "Symptômes": "Fièvre prolongée, fatigue, douleurs abdominales",
+    "Urgence": "OUI",
+    "Médicaments": "Antibiotiques (Ciprofloxacine)",
+    "Actions recommandées": "Repos, hydratation, suivi médical"
+  },
+  {
+    "Maladie": "Hépatite A",
+    "Description": "L'hépatite A est une maladie virale du foie.",
+    "Symptômes": "Fatigue, jaunisse, nausées",
+    "Urgence": "NON",
+    "Médicaments": "Pas de traitement spécifique",
+    "Actions recommandées": "Repos, hydratation, éviter l'alcool"
+  },
+  {
+    "Maladie": "Hépatite B",
+    "Description": "L'hépatite B est une infection virale qui attaque le foie.",
+    "Symptômes": "Fatigue, jaunisse, douleurs abdominales",
+    "Urgence": "OUI",
+    "Médicaments": "Antiviraux (Tenofovir, Entecavir)",
+    "Actions recommandées": "Vaccination, suivi médical, éviter l'alcool"
+  },
+  {
+    "Maladie": "Hépatite C",
+    "Description": "L'hépatite C est une infection virale qui cause une inflammation du foie.",
+    "Symptômes": "Fatigue, jaunisse, troubles digestifs",
+    "Urgence": "OUI",
+    "Médicaments": "Antiviraux (Sofosbuvir)",
+    "Actions recommandées": "Suivi médical, éviter l'alcool, régime adapté"
+  },
+  {
+    "Maladie": "Hépatite D",
+    "Description": "L'hépatite D est une maladie hépatique grave causée par le virus de l'hépatite D.",
+    "Symptômes": "Fatigue, jaunisse, douleurs abdominales",
+    "Urgence": "OUI",
+    "Médicaments": "Interféron-alpha",
+    "Actions recommandées": "Suivi médical strict, éviter l'alcool"
+  },
+  {
+    "Maladie": "Hépatite E",
+    "Description": "L'hépatite E est une infection virale qui provoque une inflammation du foie.",
+    "Symptômes": "Fatigue, jaunisse, nausées, douleurs abdominales",
+    "Urgence": "NON",
+    "Médicaments": "Pas de traitement spécifique, soutien symptomatique",
+    "Actions recommandées": "Repos, hydratation, éviter les aliments gras"
+  },
+  {
+    "Maladie": "Hépatite alcoolique",
+    "Description": "L'hépatite alcoolique est une inflammation du foie due à la consommation d'alcool.",
+    "Symptômes": "Jaunisse, fatigue, douleurs abdominales, perte d'appétit",
+    "Urgence": "OUI",
+    "Médicaments": "Arrêt de l'alcool, corticoïdes (si sévère)",
+    "Actions recommandées": "Cessation totale d'alcool, suivi médical"
+  },
+  {
+    "Maladie": "Tuberculose",
+    "Description": "La tuberculose est une infection bactérienne qui affecte principalement les poumons.",
+    "Symptômes": "Toux persistante, fièvre, sueurs nocturnes, perte de poids",
+    "Urgence": "OUI",
+    "Médicaments": "Antibiotiques (Isoniazide, Rifampicine)",
+    "Actions recommandées": "Traitement prolongé, isolement initial"
+  },
+  {
+    "Maladie": "Rhume commun",
+    "Description": "Le rhume commun est une infection virale affectant les voies respiratoires supérieures.",
+    "Symptômes": "Écoulement nasal, toux, mal de gorge, légère fièvre",
+    "Urgence": "NON",
+    "Médicaments": "Paracétamol, repos",
+    "Actions recommandées": "Repos, hydratation, éviter les contacts"
+  },
+  {
+    "Maladie": "Pneumonie",
+    "Description": "La pneumonie est une infection des poumons affectant les alvéoles pulmonaires.",
+    "Symptômes": "Fièvre, toux avec expectoration, essoufflement",
+    "Urgence": "OUI",
+    "Médicaments": "Antibiotiques (Amoxicilline), repos",
+    "Actions recommandées": "Repos, consultation médicale, oxygène si besoin"
+  },
+  {
+    "Maladie": "Hémorroïdes (piles)",
+    "Description": "Les hémorroïdes sont une condition caractérisée par des vaisseaux sanguins gonflés dans le rectum.",
+    "Symptômes": "Douleur anale, saignements, démangeaisons",
+    "Urgence": "NON",
+    "Médicaments": "Crèmes à base de lidocaïne, suppositoires",
+    "Actions recommandées": "Alimentation riche en fibres, éviter la constipation"
+  },
+  {
+    "Maladie": "Attaque cardiaque",
+    "Description": "Une attaque cardiaque est une réduction soudaine et sévère du flux sanguin vers le muscle cardiaque.",
+    "Symptômes": "Douleur thoracique, essoufflement, nausées, sueurs froides",
+    "Urgence": "OUI",
+    "Médicaments": "Aspirine, thrombolytiques (en urgence)",
+    "Actions recommandées": "Appel d'urgence (15/112), hospitalisation immédiate"
+  },
+  {
+    "Maladie": "Varices",
+    "Description": "Les varices sont des veines dilatées et tordues qui apparaissent généralement sur les jambes.",
+    "Symptômes": "Gonflement, douleur, sensation de lourdeur",
+    "Urgence": "NON",
+    "Médicaments": "Bas de contention, sclérothérapie",
+    "Actions recommandées": "Élever les jambes, éviter de rester debout longtemps"
+  },
+  {
+    "Maladie": "Hypothyroïdie",
+    "Description": "L'hypothyroïdie est une condition où la glande thyroïde ne produit pas suffisamment d'hormone thyroïdienne.",
+    "Symptômes": "Fatigue, prise de poids, frilosité",
+    "Urgence": "NON",
+    "Médicaments": "Lévothyroxine",
+    "Actions recommandées": "Suivi médical régulier, régime équilibré"
+  },
+  {
+    "Maladie": "Hyperthyroïdie",
+    "Description": "L'hyperthyroïdie est une condition où la glande thyroïde produit trop d'hormone thyroïdienne.",
+    "Symptômes": "Perte de poids, nervosité, palpitations",
+    "Urgence": "OUI",
+    "Médicaments": "Méthimazole, iode radioactif",
+    "Actions recommandées": "Réduire le stress, suivi médical"
+  },
+  {
+    "Maladie": "Hypoglycémie",
+    "Description": "L'hypoglycémie est une condition caractérisée par un taux anormalement bas de sucre dans le sang.",
+    "Symptômes": "Tremblements, sueurs, confusion, faiblesse",
+    "Urgence": "OUI",
+    "Médicaments": "Glucose, glucagon (en urgence)",
+    "Actions recommandées": "Manger des glucides rapides, suivi médical"
+  },
+  {
+    "Maladie": "Ostéoarthrite",
+    "Description": "L'ostéoarthrite est une dégénérescence des articulations provoquant douleur et raideur.",
+    "Symptômes": "Douleur articulaire, raideur matinale, gonflement",
+    "Urgence": "NON",
+    "Médicaments": "Paracétamol, AINS (Ibuprofène)",
+    "Actions recommandées": "Exercices doux, perte de poids si nécessaire"
+  },
+  {
+    "Maladie": "Vertige paroxystique positionnel",
+    "Description": "Le vertige paroxystique positionnel est un type de vertige provoqué par des mouvements spécifiques de la tête.",
+    "Symptômes": "Vertiges, nausées, perte d'équilibre",
+    "Urgence": "NON",
+    "Médicaments": "Manœuvres de repositionnement (Epley)",
+    "Actions recommandées": "Éviter les mouvements brusques, consulter un ORL"
+  },
+  {
+    "Maladie": "Acné",
+    "Description": "L'acné est une condition qui survient lorsque les follicules pileux sont obstrués par de l'huile et des cellules mortes.",
+    "Symptômes": "Boutons, points noirs, inflammation",
+    "Urgence": "NON",
+    "Médicaments": "Peroxyde de benzoyle, rétinoïdes",
+    "Actions recommandées": "Nettoyage doux, éviter de toucher le visage"
+  },
+  {
+    "Maladie": "Psoriasis",
+    "Description": "Le psoriasis est une condition cutanée chronique caractérisée par des plaques rouges, squameuses et démangeaisons.",
+    "Symptômes": "Plaques rouges, démangeaisons, desquamation",
+    "Urgence": "NON",
+    "Médicaments": "Crèmes à base de corticoïdes, photothérapie",
+    "Actions recommandées": "Hydrater la peau, éviter les irritants"
+  },
+  {
+    "Maladie": "Impétigo",
+    "Description": "L'impétigo est une infection cutanée hautement contagieuse causant des plaies rouges qui peuvent s'ouvrir.",
+    "Symptômes": "Plaies rouges, croûtes dorées, démangeaisons",
+    "Urgence": "NON",
+    "Médicaments": "Antibiotiques topiques (Mupirocine)",
+    "Actions recommandées": "Lavage fréquent, éviter le contact"
+  },
+  {
+    "Maladie": "Infarctus du myocarde",
+    "Symptômes": [
+      "Douleur thoracique intense",
+      "Sueurs froides",
+      "Essoufflement",
+      "Nausées"
+    ],
+    "Description": "Obstruction des artères coronaires entraînant une nécrose du muscle cardiaque.",
+    "Urgence": "OUI",
+    "Traitements": [
+      "Aspirine (en urgence)",
+      "Thrombolytiques",
+      "Angioplastie"
+    ],
+    "Actions": "Appeler le SAMU (15/112) immédiatement"
+  },
+  {
+    "Maladie": "AVC (Accident Vasculaire Cérébral)",
+    "Symptômes": [
+      "Faiblesse soudaine d'un côté du corps",
+      "Trouble de la parole",
+      "Vision trouble",
+      "Maux de tête intenses"
+    ],
+    "Description": "Interruption de la circulation sanguine dans le cerveau.",
+    "Urgence": "OUI",
+    "Traitements": [
+      "Thrombolyse (si ischémique)",
+      "Rééducation"
+    ],
+    "Actions": "Urgence absolue - Appeler le 15"
+  },
+  {
+    "Maladie": "Appendicite aiguë",
+    "Symptômes": [
+      "Douleur en bas à droite de l'abdomen",
+      "Fièvre",
+      "Nausées",
+      "Perte d'appétit"
+    ],
+    "Description": "Inflammation de l'appendice nécessitant une intervention chirurgicale.",
+    "Urgence": "OUI",
+    "Traitements": [
+      "Antibiotiques",
+      "Appendicectomie"
+    ],
+    "Actions": "Consultation chirurgicale urgente"
+  },
+  {
+    "Maladie": "Pneumonie bactérienne",
+    "Symptômes": [
+      "Fièvre élevée",
+      "Toux productive",
+      "Douleur thoracique",
+      "Essoufflement"
+    ],
+    "Description": "Infection des alvéoles pulmonaires.",
+    "Urgence": "OUI",
+    "Traitements": [
+      "Antibiotiques (Amoxicilline)",
+      "Oxygénothérapie"
+    ],
+    "Actions": "Consultation médicale sous 24h"
+  },
+  {
+    "Maladie": "Dengue hémorragique",
+    "Symptômes": [
+      "Fièvre élevée",
+      "Douleurs articulaires",
+      "Saignements",
+      "Fatigue extrême"
+    ],
+    "Description": "Infection virale transmise par les moustiques.",
+    "Urgence": "OUI",
+    "Traitements": [
+      "Réhydratation",
+      "Paracétamol"
+    ],
+    "Actions": "Éviter l'aspirine - Hospitalisation si forme grave"
+  },
+  {
+    "Maladie": "Colique néphrétique",
+    "Symptômes": [
+      "Douleur lombaire intense",
+      "Nausées",
+      "Sang dans les urines",
+      "Besoin fréquent d'uriner"
+    ],
+    "Description": "Calcul rénal bloqué dans les voies urinaires.",
+    "Urgence": "OUI",
+    "Traitements": [
+      "Antalgiques puissants",
+      "Anti-inflammatoires",
+      "Lithotritie"
+    ],
+    "Actions": "Consultation urologique"
+  },
+  {
+    "Maladie": "Zona",
+    "Symptômes": [
+      "Éruption cutanée douloureuse",
+      "Picotements",
+      "Fièvre légère",
+      "Fatigue"
+    ],
+    "Description": "Réactivation du virus varicelle-zona.",
+    "Urgence": "NON",
+    "Traitements": [
+      "Antiviraux (Aciclovir)",
+      "Antalgiques"
+    ],
+    "Actions": "Consultation sous 72h pour traitement antiviral"
+  },
+  {
+    "Maladie": "Mononucléose infectieuse",
+    "Symptômes": [
+      "Fatigue intense",
+      "Angine",
+      "Ganglions enflés",
+      "Fièvre"
+    ],
+    "Description": "Infection virale par le virus Epstein-Barr.",
+    "Urgence": "NON",
+    "Traitements": [
+      "Repos",
+      "Hydratation",
+      "Antalgiques"
+    ],
+    "Actions": "Éviter les sports de contact"
+  },
+  {
+    "Maladie": "Conjonctivite bactérienne",
+    "Symptômes": [
+      "Œil rouge",
+      "Sécrétions purulentes",
+      "Démangeaisons",
+      "Sensibilité à la lumière"
+    ],
+    "Description": "Infection de la conjonctive oculaire.",
+    "Urgence": "NON",
+    "Traitements": [
+      "Collyre antibiotique",
+      "Compresses stériles"
+    ],
+    "Actions": "Consultation si persiste > 48h"
+  },
+  {
+    "Maladie": "Otite moyenne",
+    "Symptômes": [
+      "Douleur à l'oreille",
+      "Baisse d'audition",
+      "Fièvre",
+      "Irritabilité (chez l'enfant)"
+    ],
+    "Description": "Infection de l'oreille moyenne.",
+    "Urgence": "NON",
+    "Traitements": [
+      "Antalgiques",
+      "Antibiotiques (si bactérienne)"
+    ],
+    "Actions": "Consultation si fièvre > 48h"
+  },
+  {
+    "Maladie": "Lumbago",
+    "Symptômes": [
+      "Douleur lombaire brutale",
+      "Raideur",
+      "Difficulté à se mouvoir"
+    ],
+    "Description": "Douleur musculaire ou ligamentaire du bas du dos.",
+    "Urgence": "NON",
+    "Traitements": [
+      "Anti-inflammatoires",
+      "Repos relatif",
+      "Kinésithérapie"
+    ],
+    "Actions": "Éviter le repos strict prolongé"
+  },
+  {
+    "Maladie": "Cystite simple",
+    "Symptômes": [
+      "Brûlures urinaires",
+      "Fréquence urinaire accrue",
+      "Urgence mictionnelle"
+    ],
+    "Description": "Infection urinaire basse sans fièvre.",
+    "Urgence": "NON",
+    "Traitements": [
+      "Antibiotiques (Fosfomycine)",
+      "Hydratation"
+    ],
+    "Actions": "Boire >1.5L/jour - Consultation si symptômes > 3 jours"
+  },
+  {
+    "Maladie": "Roséole",
+    "Symptômes": [
+      "Fièvre élevée 3-4 jours",
+      "Éruption cutanée après la fièvre",
+      "Irritabilité"
+    ],
+    "Description": "Infection virale fréquente chez le jeune enfant.",
+    "Urgence": "NON",
+    "Traitements": [
+      "Paracétamol",
+      "Hydratation"
+    ],
+    "Actions": "Surveillance de la fièvre"
+  },
+  {
+    "Maladie": "Rhinite allergique",
+    "Symptômes": [
+      "Éternuements",
+      "Nez qui coule",
+      "Démangeaisons nasales",
+      "Yeux rouges"
+    ],
+    "Description": "Réaction allergique aux pollens/acariens.",
+    "Urgence": "NON",
+    "Traitements": [
+      "Antihistaminiques",
+      "Corticoïdes nasaux"
+    ],
+    "Actions": "Éviction des allergènes"
+  },
+  {
+    "Maladie": "Gingivite",
+    "Symptômes": [
+      "Saignements gingivaux",
+      "Gencives rouges",
+      "Mauvaise haleine"
+    ],
+    "Description": "Inflammation des gencives.",
+    "Urgence": "NON",
+    "Traitements": [
+      "Brossage rigoureux",
+      "Bains de bouche"
+    ],
+    "Actions": "Consultation dentaire si persiste"
+  },
+  {
+    "Maladie": "Syndrome du canal carpien",
+    "Symptômes": [
+      "Fourmillements dans les doigts",
+      "Douleur nocturne",
+      "Faiblesse de la main"
+    ],
+    "Description": "Compression du nerf médian au poignet.",
+    "Urgence": "NON",
+    "Traitements": [
+      "Attelle nocturne",
+      "Infiltration",
+      "Chirurgie"
+    ],
+    "Actions": "Consultation si symptômes > 3 mois"
+  },
+  {
+    "Maladie": "Érysipèle",
+    "Symptômes": [
+      "Plaque rouge douloureuse",
+      "Fièvre",
+      "Œdème"
+    ],
+    "Description": "Infection cutanée bactérienne.",
+    "Urgence": "OUI",
+    "Traitements": [
+      "Antibiotiques (Pénicilline)"
+    ],
+    "Actions": "Traitement antibiotique urgent"
+  },
+  {
+    "Maladie": "Goutte",
+    "Symptômes": [
+      "Douleur articulaire intense (souvent gros orteil)",
+      "Rougeur",
+      "Œdème"
+    ],
+    "Description": "Dépôts de cristaux d'acide urique dans les articulations.",
+    "Urgence": "NON",
+    "Traitements": [
+      "Anti-inflammatoires",
+      "Colchicine",
+      "Régime pauvre en purines"
+    ],
+    "Actions": "Consultation pour bilan d'acide urique"
+  },
+  {
+    "Maladie": "Herpès labial",
+    "Symptômes": [
+      "Vésicules douloureuses sur les lèvres",
+      "Picotements",
+      "Croûtes"
+    ],
+    "Description": "Infection virale récurrente.",
+    "Urgence": "NON",
+    "Traitements": [
+      "Crème antivirale (Aciclovir)",
+      "Protection solaire"
+    ],
+    "Actions": "Éviter les contacts en phase active"
+  },
+  {
+    "Maladie": "Scarlatine",
+    "Symptômes": [
+      "Angine",
+      "Éruption cutanée",
+      "Langue framboisée",
+      "Fièvre"
+    ],
+    "Description": "Infection bactérienne à streptocoque.",
+    "Urgence": "OUI",
+    "Traitements": [
+      "Antibiotiques (Pénicilline)"
+    ],
+    "Actions": "Traitement antibiotique obligatoire"
+  },
+  {
+    "id": 74,
+    "Maladie": "test",
+    "Description": "testtestest",
+    "Symptômes": [
+      "test"
+    ],
+    "Urgence": "OUI",
+    "Médicaments": [
+      "test",
+      "test2"
+    ],
+    "Actions recommandées": "test jiji  test test"
+  }
+]

@@ -1,0 +1,444 @@
+{% extends "base.html" %}
+
+{% block title %}Inscription - Medical Chatbot{% endblock %}
+
+{% block styles %}
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f9fafb;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Header Menu */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(135deg, #40916c 0%, #74c69d 100%);
+        color: #f8fafc;
+        padding: 0.75rem 1.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        height: 70px;
+        border-bottom-left-radius: 0.75rem;
+        border-bottom-right-radius: 0.75rem;
+    }
+
+    .header .logo {
+        font-size: 1.25rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        letter-spacing: -0.025em;
+    }
+
+    .header .logo i {
+        font-size: 1.5rem;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.5rem;
+        border-radius: 9999px;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    }
+
+    .menu {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .menu button {
+        padding: 0.5rem 1.25rem;
+        background: linear-gradient(135deg, #40916c 0%, #74c69d 100%);
+        border: none;
+        border-radius: 9999px;
+        color: #f8fafc;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    }
+
+    .menu button:hover {
+        background: linear-gradient(135deg, #2d6a4f 0%, #40916c 100%);
+        color: #fff;
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    }
+
+    .menu button:active {
+        transform: translateY(0) scale(1);
+    }
+
+    /* Log In Button Color Change */
+    .log-in-btn {
+        background: linear-gradient(135deg, #40916c 0%, #74c69d 100%);
+        color: #f8fafc;
+        border-radius: 9999px;
+        font-weight: 600;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    }
+
+    .log-in-btn:hover {
+        background: linear-gradient(135deg, #2d6a4f 0%, #40916c 100%);
+        color: #fff;
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    }
+
+    /* Sign Up Page */
+    .signup-container {
+        background: #fff;
+        padding: 2.5rem 2rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        margin: 120px auto 0 auto;
+        transition: transform 0.3s ease;
+    }
+
+    .signup-container:hover {
+        transform: translateY(-2px);
+    }
+
+    h1 {
+        margin-bottom: 2rem;
+        color: #40916c;
+        font-size: 1.75rem;
+        font-weight: 700;
+    }
+
+    .signup-container form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        width: 100%;
+    }
+
+    .form-group {
+        position: relative;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .form-group i.input-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #40916c;
+        z-index: 2;
+        pointer-events: none;
+        font-size: 18px;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"] {
+        width: 100%;
+        padding: 1rem 1rem 1rem 2.5rem;
+        border-radius: 0.75rem;
+        border: 1.5px solid #e2e8f0;
+        font-size: 1rem;
+        background: #f3f4f6;
+        color: #1e293b;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+        outline: none;
+        border-color: #40916c;
+        box-shadow: 0 0 0 3px rgba(64, 145, 108, 0.1);
+        background: #fff;
+    }
+
+    .role-selection {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        align-items: center;
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    .role-selection label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        color: #2e7d32;
+        font-weight: 500;
+    }
+
+    .role-selection input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #2e7d32;
+    }
+
+    button[type="submit"] {
+        padding: 1rem;
+        border-radius: 9999px;
+        border: none;
+        background: linear-gradient(135deg, #40916c 0%, #74c69d 100%);
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        margin-top: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    }
+
+    button[type="submit"]:hover {
+        background: linear-gradient(135deg, #2d6a4f 0%, #40916c 100%);
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    }
+
+    .link {
+        margin-top: 20px;
+        color: #666;
+    }
+
+    .link a {
+        color: #2e7d32;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .link a:hover {
+        color: #1b5e20;
+        text-decoration: underline;
+    }
+
+    /* Alert Messages */
+    .alert {
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .alert-error {
+        background-color: #ffebee;
+        color: #c62828;
+        border: 1px solid #ffcdd2;
+    }
+
+    .alert-success {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+        border: 1px solid #c8e6c9;
+    }
+
+    .alert i {
+        font-size: 16px;
+    }
+
+    /* Form Validation Styles */
+    .form-group.error input {
+        border-color: #c62828;
+    }
+
+    .form-group.error .error-message {
+        color: #c62828;
+        font-size: 12px;
+        margin-top: 5px;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    /* Loading State */
+    .loading {
+        position: relative;
+        pointer-events: none;
+    }
+
+    .loading::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 50%;
+        left: 50%;
+        margin: -10px 0 0 -10px;
+        border: 2px solid #ffffff;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: button-loading-spinner 1s linear infinite;
+    }
+
+    @keyframes button-loading-spinner {
+        from {
+            transform: rotate(0turn);
+        }
+        to {
+            transform: rotate(1turn);
+        }
+    }
+
+    /* Tooltip */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip .tooltip-text {
+        visibility: hidden;
+        width: 200px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        font-size: 12px;
+    }
+
+    .tooltip:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="header">
+    <div class="logo">
+        <i class="fas fa-heartbeat"></i>
+        <span>HealthAssist AI</span>
+    </div>
+    <div class="menu">
+        <button onclick="navigateToLogin()" class="log-in-btn">
+            <i class="fas fa-sign-in-alt"></i>
+            Se connecter
+        </button>
+    </div>
+</div>
+
+<div class="signup-container">
+    <h1>Inscription</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    <i class="fas {% if category == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form method="POST" action="{{ url_for('signup') }}" id="signupForm">
+        <div class="form-group">
+            <i class="fas fa-user input-icon"></i>
+            <input type="text" name="username" placeholder="Nom d'utilisateur" required minlength="3" maxlength="20">
+            <div class="error-message"></div>
+        </div>
+        <div class="form-group">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" name="email" placeholder="Email" required>
+            <div class="error-message"></div>
+        </div>
+        <div class="form-group">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" name="password" id="password" placeholder="Mot de passe" required minlength="8">
+            <div class="error-message"></div>
+        </div>
+        <div class="form-group">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirmer le mot de passe" required>
+            <div class="error-message"></div>
+        </div>
+        
+        <div class="role-selection">
+            <label class="tooltip">
+                <input type="checkbox" name="is_doctor" id="is_doctor">
+                <i class="fas fa-user-md"></i>
+                Je suis un médecin
+                <span class="tooltip-text">Les comptes médecins nécessitent une validation par l'administrateur</span>
+            </label>
+        </div>
+        
+        <button type="submit" id="submitButton">
+            <i class="fas fa-user-plus"></i>
+            S'inscrire
+        </button>
+    </form>
+    
+    <div class="link">
+        <p>Déjà un compte ? <a href="{{ url_for('login') }}">Se connecter</a></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('signupForm');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirm_password');
+    const submitButton = document.getElementById('submitButton');
+
+    function validateForm(e) {
+    if (password.value !== confirmPassword.value) {
+            e.preventDefault();
+        confirmPassword.parentElement.classList.add('error');
+        confirmPassword.parentElement.querySelector('.error-message').textContent = 'Les mots de passe ne correspondent pas';
+            return false;
+        }
+        
+        confirmPassword.parentElement.classList.remove('error');
+        confirmPassword.parentElement.querySelector('.error-message').textContent = '';
+        submitButton.classList.add('loading');
+        submitButton.disabled = true;
+        return true;
+}
+
+    // Événements
+    form.addEventListener('submit', validateForm);
+});
+
+function navigateToLogin() {
+    window.location.href = "{{ url_for('login') }}";
+}
+</script>
+{% endblock %}
+

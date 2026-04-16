@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}Historique des Conversations - Medical Chatbot{% endblock %}
+
+{% block styles %}
+<style>
+    .chat-history-container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    .chat-list {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .chat-item {
+        border-bottom: 1px solid #eee;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .chat-item:last-child {
+        border-bottom: none;
+    }
+
+    .chat-info {
+        flex-grow: 1;
+    }
+
+    .chat-date {
+        color: #666;
+        font-size: 0.9em;
+    }
+
+    .chat-status {
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.8em;
+        margin-left: 10px;
+    }
+
+    .status-pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .status-completed {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .status-rejected {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .chat-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.9em;
+        transition: background-color 0.3s;
+    }
+
+    .btn-view {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-view:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-delete {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-delete:hover {
+        background-color: #c82333;
+    }
+
+    .no-chats {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .header h1 {
+        margin: 0;
+        color: #333;
+    }
+
+    .new-chat-btn {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .new-chat-btn:hover {
+        background-color: #218838;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="chat-history-container">
+    <div class="header">
+        <h1>Historique des Conversations</h1>
+        <a href="{{ url_for('chat_user') }}" class="new-chat-btn">Nouvelle Conversation</a>
+    </div>
+
+    <div class="chat-list">
+        {% if chats %}
+            {% for chat in chats %}
+                <div class="chat-item">
+                    <div class="chat-info">
+                        <div class="chat-date">
+                            Conversation du {{ chat.created_at.strftime('%d/%m/%Y à %H:%M') }}
+                        </div>
+                        <div class="chat-status status-{{ chat.status }}">
+                            {{ chat.status|title }}
+                        </div>
+                    </div>
+                    <div class="chat-actions">
+                        <a href="{{ url_for('chat_user', chat_id=chat.id) }}" class="btn btn-view">Voir</a>
+                        <button onclick="deleteChat({{ chat.id }})" class="btn btn-delete">Supprimer</button>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-chats">
+                <p>Aucune conversation trouvée.</p>
+                <a href="{{ url_for('chat_user') }}" class="new-chat-btn">Démarrer une nouvelle conversation</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function deleteChat(chatId) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette conversation ?')) {
+        fetch(`/api/chat/${chatId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.reload();
+            } else {
+                alert('Erreur lors de la suppression de la conversation');
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            alert('Une erreur est survenue lors de la suppression de la conversation');
+        });
+    }
+}
+</script>
+{% endblock %} 
